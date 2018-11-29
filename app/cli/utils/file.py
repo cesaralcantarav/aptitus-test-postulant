@@ -22,9 +22,10 @@ def get_file_from_storage(config, env, storage, input_file):
             config['s3']['input']['key'],
             input_file
         )
+        (env, sub_env) = env.split('.')
         get_file_from_s3(
             bucket_name.format(env=env),
-            bucket_key.format(env=env),
+            bucket_key.format(env=env, sub_env=sub_env),
             input_file
         )
 

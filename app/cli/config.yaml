@@ -3,15 +3,15 @@ logger:
 
 endpoint:
   postulant:
-    dev: "https://dev{senv}.aptitus.com/registro"
-    pre: "https://pre{senv}.aptitus.com/registro"
+    dev: "https://{test_env}.aptitus.com/registro"
+    pre: "https://{test_env}.aptitus.com/registro"
     prod: "https://aptitus.com/registro"
 
 s3:
   input:
     bucket: qa.{env}
-    key:  test/aptitus/{env}/postulant/data/input
+    key:  test/aptitus/{test_env}/postulant/data/input
 
   output:
     bucket: qa.{env}
-    key:  test/aptitus/{env}/postulant/data/output
+    key:  test/aptitus/{test_env}/postulant/data/output

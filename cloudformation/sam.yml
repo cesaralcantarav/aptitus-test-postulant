@@ -1,12 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: "pagoefectivo-test-payment"
+Description: "aptitus-test-postulant"
 
 Mappings:
   Environments:
     dev:
       Region: "eu-west-1"
-      SubnetIds: "subnet-d3b9f7b7,subnet-5ab8ff2c,subnet-18cb4040"
+      SubnetIds: "subnet-1557cb5d,"
       SecurityGroupId: "sg-f364ba88"
     pre:
       Region: "us-west-2"
@@ -14,7 +14,7 @@ Mappings:
       SecurityGroupId: "sg-d96446a3"
     prod:
       Region: "us-east-1"
-      SubnetIds: "subnet-7b2db356,subnet-9aa030c1,subnet-80571ec9"
+      SubnetIds: "subnet-a01867ea,subnet-02eff1b84c3eb7454,subnet-0feb25f3357afb9f6,subnet-8a5af4ed,subnet-892956c3,subnet-56ff0368,subnet-2950fe4e,subnet-738a764d"
       SecurityGroupId: "sg-58bd2528"
 
 Parameters:
