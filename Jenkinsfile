@@ -6,7 +6,7 @@ pipeline {
         stage('Set Config') {
             steps { 
                 script { 
-                    config = fnSteps.configs("${JENKINS_ENV}", params.RUNTEST, params.INPUT_FILE)
+                    config = fnSteps.configs("${JENKINS_ENV}", params.RUNTEST, params.INPUT_FILE, params.SUB_ENV)
                     withEnv(config) { fnSteps.call("DEPLOY") }
                 }
             }
@@ -63,11 +63,15 @@ pipeline {
             description: 'Se realiza deploy del tarea de test')
         choice(
             name: 'RUNTEST',
-            choices:["registro:rapido"],
+            choices:['registro:rapido'],
             description: 'Ejecuta el test selecionado')
         string(
             name: 'INPUT_FILE',
-            defaultValue: "data-stage.xlsx", 
+            defaultValue: 'data-stage.xlsx', 
             description: 'Archivo de data input para la ejecutar test')
+                choice(
+        name: 'SUB_ENV',
+            choices:['4a'],
+            description: 'Sub-Enviroment')
     }
 }

@@ -98,7 +98,7 @@ def getRegions(def enviroment) {
   return REGIONS[enviroment]
 }
 
-def configs(def enviroment, def runtest, def input_file) {
+def configs(def enviroment, def runtest, def input_file, def sub_env) {
   region = getRegions(enviroment)
   def config = [
     "ENV=${enviroment}",
@@ -107,10 +107,11 @@ def configs(def enviroment, def runtest, def input_file) {
     "SLACK_CHANNEL=apt-testing",
     "ACCOUNT_ID=929226109038",
     "MEMORY_SIZE=128",
-    "TEST_ENV=${enviroment}",
+    "TEST_ENV=${enviroment}.${sub_env}",
     "STORAGE=s3",
     "INPUT_FILE=${input_file}",
     "CLICK_OPTION=${runtest}"
+    "SUB_ENV=${sub_env}"
   ]
 
   return config
