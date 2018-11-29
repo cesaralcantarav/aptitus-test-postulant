@@ -104,7 +104,7 @@ def configs(def enviroment, def runtest, def input_file, def sub_env) {
     "ENV=${enviroment}",
     "DEPLOY_REGION=${region}",
     "INFRA_BUCKET=infraestructura.${enviroment}",
-    "SLACK_CHANNEL=apt-testing",
+    "SLACK_CHANNEL=aptitus-testing",
     "ACCOUNT_ID=929226109038",
     "MEMORY_SIZE=128",
     "TEST_ENV=${enviroment}.${sub_env}",
