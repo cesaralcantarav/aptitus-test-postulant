@@ -15,21 +15,20 @@ def get_file_from_s3(bucket_name, bucket_key, filename):
         filename
     )
 
-def get_file_from_storage(config, env, storage, input_file):
+def get_file_from_storage(config, env, sub_env, storage, input_file):
     if storage == 's3': 
         bucket_name = config['s3']['input']['bucket']
         bucket_key = "{}/{}".format(
             config['s3']['input']['key'],
             input_file
         )
-        (env, sub_env) = env.split('.')
         get_file_from_s3(
             bucket_name.format(env=env),
             bucket_key.format(env=env, sub_env=sub_env),
             input_file
         )
 
-def put_file_to_storage(config, env, storage, output_file):
+def put_file_to_storage(config, env, sub_env, storage, output_file):
     if storage == 's3': 
         output_filename = Path(output_file).name
         bucket_name = config['s3']['output']['bucket']
@@ -40,7 +39,7 @@ def put_file_to_storage(config, env, storage, output_file):
         put_file_to_s3(
             output_file,
             bucket_name.format(env=env),
-            bucket_key.format(env=env)
+            bucket_key.format(env=env, sub_env=sub_env)
         )
 
 def put_file_to_s3(filename, bucket_name, bucket_key):

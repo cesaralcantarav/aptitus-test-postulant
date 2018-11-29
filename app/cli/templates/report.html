@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1 class="title">Reporte de Testing del MS Payment</h1>
+    <h1 class="title">Reporte de Testing Registro Rapido Ajax - Postulante</h1>
     
     <table class="ui definition table">
         <tbody>
@@ -23,20 +23,17 @@
         <thead>
             <tr>
             <th class="center aligned">#</th>
-            <th class="center aligned">Status Code</th>
-            <th class="center aligned">Code</th>
             <th class="center aligned six wide">Message</th>
             <th class="center aligned">Payload Request</th>
             <th class="center aligned">Payload Response</th>
             <th class="center aligned">Status</th>
+            <th class="center aligned">Status Code</th>
             </tr>
         </thead>
         <tbody>
         {% for result in data.results %}
             <tr>
                 <td class="center aligned">{{ loop.index }}</td>
-                <td class="center aligned">{{ result.status_code }}</td>
-                <td class="center aligned">{{ result.response_code }}</td>
                 <td >{{ result.response_message }}</td>
                 <td class="center aligned">
                     <button class="ui icon button" onclick="$('#{{ result.request.id }}').modal('show');">
@@ -47,6 +44,13 @@
                     <button class="ui icon button" onclick="$('#{{ result.response.id }}').modal('show');">
                         <i class="file icon"></i>
                     </button>
+                </td>
+                <td class="center aligned">
+                    {% if result.response_status == 1 %}
+                        <div class="ui green horizontal label">Satisfactorio</div>
+                    {% else %}
+                        <div class="ui red horizontal label">Error</div>
+                    {% endif %}
                 </td>
                 <td class="center aligned">
                     {% if result.status_code in [200, 201] %}

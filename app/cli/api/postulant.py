@@ -20,7 +20,7 @@ class PostulantApi(object):
         self.headers = headers
 
     def registro_rapido(self, payload):
-        url = '{}/registro-rapido-ajax'.format(self.base_url, bank)
+        url = '{}/registro-rapido-ajax'.format(self.base_url)
         r = requests.post(url, headers=self.headers, data=json.dumps(payload))
         return r
 
