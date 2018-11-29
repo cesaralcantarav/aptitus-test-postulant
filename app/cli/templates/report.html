@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="title">Reporte de Testing del MS Payment</h1>
+    
+    <table class="ui definition table">
+        <tbody>
+          <tr>
+            <td class="three wide column">Operación</td>
+            <td>{{ data.operation }}</td>
+          </tr>
+          <tr>
+            <td>Fecha/Hora de ejecución</td>
+            <td>{{ data.executed_at }}</td>
+          </tr>
+          <tr>
+            <td>Endpoint</td>
+            <td>{{ data.endpoint }}</td>
+          </tr>
+        </tbody>
+    </table>
+
+    <table class="ui celled structured table">
+        <thead>
+            <tr>
+            <th class="center aligned">#</th>
+            <th class="center aligned">Status Code</th>
+            <th class="center aligned">Code</th>
+            <th class="center aligned six wide">Message</th>
+            <th class="center aligned">Payload Request</th>
+            <th class="center aligned">Payload Response</th>
+            <th class="center aligned">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for result in data.results %}
+            <tr>
+                <td class="center aligned">{{ loop.index }}</td>
+                <td class="center aligned">{{ result.status_code }}</td>
+                <td class="center aligned">{{ result.response_code }}</td>
+                <td >{{ result.response_message }}</td>
+                <td class="center aligned">
+                    <button class="ui icon button" onclick="$('#{{ result.request.id }}').modal('show');">
+                        <i class="file icon"></i>
+                    </button>
+                </td>
+                <td class="center aligned">
+                    <button class="ui icon button" onclick="$('#{{ result.response.id }}').modal('show');">
+                        <i class="file icon"></i>
+                    </button>
+                </td>
+                <td class="center aligned">
+                    {% if result.status_code in [200, 201] %}
+                        <div class="ui green horizontal label">Satisfactorio</div>
+                    {% else %}
+                        <div class="ui red horizontal label">Error</div>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% for result in data.results %}
+        {% include "modal_request.html" ignore missing with context %}
+        {% include "modal_response.html" ignore missing with context %}
+    {% endfor %} 
+{% endblock %}

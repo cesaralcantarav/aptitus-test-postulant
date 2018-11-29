@@ -1,0 +1,10 @@
+<div class="ui modal" id="{{ result.request.id }}">
+    <i class="close icon"></i>
+    <div class="header">Payload Request</div>
+    <div class="scrolling content">
+    <pre>{{ result.request.payload }}</pre>
+    </div>
+    <div class="actions">
+        <div class="ui button" onclick="CopyToClipboard('{{ result.request.id }}')">Copy to Clipboard</div>
+    </div>
+</div>

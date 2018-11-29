@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "pagoefectivo-test-payment"
+
+Mappings:
+  Environments:
+    dev:
+      Region: "eu-west-1"
+      SubnetIds: "subnet-d3b9f7b7,subnet-5ab8ff2c,subnet-18cb4040"
+      SecurityGroupId: "sg-f364ba88"
+    pre:
+      Region: "us-west-2"
+      SubnetIds: "subnet-991dd9fe,subnet-bbcd80e3,subnet-bbcd80e3"
+      SecurityGroupId: "sg-d96446a3"
+    prod:
+      Region: "us-east-1"
+      SubnetIds: "subnet-7b2db356,subnet-9aa030c1,subnet-80571ec9"
+      SecurityGroupId: "sg-58bd2528"
+
+Parameters:
+  Owner:
+    Description: "Parametro que define el propietario"
+    Type: String
+  ServiceName:
+    Description: "Parametro que define el nombre del servicio"
+    Type: String
+  Environment:
+    Description: "Parametro que define el entorno por region"
+    Type: String
+    Default: "lab"
+  Image:
+    Description: Image a desplegar
+    Type: String
+  MemorySize:
+    Description: Cantidad de memoria asignada a la instancia del contenedor
+    Type: Number
+
+
+Resources:
+  TaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${Owner}.${Environment}.task.${ServiceName}.ecs"
+      AssumeRolePolicyDocument:
+        Statement:
+        -
+          Effect: "Allow"
+          Principal:
+            Service:
+              - "ecs-tasks.amazonaws.com"
+          Action:
+          - "sts:AssumeRole"
+      Path: /
+      Policies:
+        - PolicyName: !Sub "${Owner}.${Environment}.task.${ServiceName}.ecs"
+          PolicyDocument:
+            Statement:
+            - Effect: Allow
+              Action:
+                - autoscaling:Describe*,
+                - cloudwatch:*,
+                - logs:*,
+                - s3:*
+              Resource: '*'
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "${Owner}-${Environment}-task-${ServiceName}"
+      TaskRoleArn: !Ref TaskRole
+      ContainerDefinitions:
+        -
+          Name: !Sub "${Owner}-${Environment}-task-${ServiceName}"
+          Essential: true
+          Image: !Ref Image
+          Memory: !Ref MemorySize
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "${Owner}-${Environment}-task-${ServiceName}"
+              awslogs-region: !Ref AWS::Region
+
+  CloudWatchLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "${Owner}-${Environment}-task-${ServiceName}"
+      RetentionInDays: 365
+
