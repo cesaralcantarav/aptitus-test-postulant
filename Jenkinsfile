@@ -69,8 +69,8 @@ pipeline {
             name: 'INPUT_FILE',
             defaultValue: 'data-stage.xlsx', 
             description: 'Archivo de data input para la ejecutar test')
-                choice(
-        name: 'SUB_ENV',
+        choice(
+            name: 'SUB_ENV',
             choices:['4a'],
             description: 'Sub-Enviroment')
     }

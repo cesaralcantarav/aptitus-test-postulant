@@ -111,7 +111,6 @@ def configs(def enviroment, def runtest, def input_file, def sub_env) {
     "STORAGE=s3",
     "INPUT_FILE=${input_file}",
     "CLICK_OPTION=${runtest}"
-    "SUB_ENV=${sub_env}"
   ]
 
   return config
