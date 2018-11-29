@@ -1,6 +1,6 @@
 def call(String buildResult) {
   if ( buildResult == "DEPLOY" ) {
-    sh 'git log HEAD\^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
+    sh 'git log HEAD\\^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
     def lastChanges = readFile('GIT_CHANGES')
     slackSend (
       channel: "${SLACK_CHANNEL}",
@@ -104,7 +104,7 @@ def configs(def enviroment, def runtest, def input_file) {
     "ENV=${enviroment}",
     "DEPLOY_REGION=${region}",
     "INFRA_BUCKET=infraestructura.${enviroment}",
-    "SLACK_CHANNEL=pe-testing",
+    "SLACK_CHANNEL=apt-testing",
     "ACCOUNT_ID=929226109038",
     "MEMORY_SIZE=128",
     "TEST_ENV=${enviroment}",
