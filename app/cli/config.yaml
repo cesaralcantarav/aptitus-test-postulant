@@ -10,8 +10,8 @@ endpoint:
 s3:
   input:
     bucket: qa.{env}
-    key:  test/aptitus/{test_env}/postulant/data/input
+    key:  test/aptitus/{env}.{sub_env}/postulant/data/input
 
   output:
     bucket: qa.{env}
-    key:  test/aptitus/{test_env}/postulant/data/output
+    key:  test/aptitus/{env}.{sub_env}/postulant/data/output
