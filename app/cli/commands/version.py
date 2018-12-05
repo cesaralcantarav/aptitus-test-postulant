@@ -15,11 +15,11 @@ def command(ctx, **kwargs):
     click.echo(" - verbose: {}".format(
              ctx.config['logger']['verbose']))
     click.echo("endpoint:")
-    click.echo("  registro:")
+    click.echo("  postulant:")
     click.echo("    - dev: {}".format(
-             ctx.config['endpoint']['registro']['dev']))
+             ctx.config['endpoint']['postulant']['dev']))
     click.echo("    - pre: {}".format(
-             ctx.config['endpoint']['registro']['pre']))
+             ctx.config['endpoint']['postulant']['pre']))
     click.echo("    - prod: {}".format(
-             ctx.config['endpoint']['registro']['prod']))
+             ctx.config['endpoint']['postulant']['prod']))
     click.echo("")
